@@ -10,7 +10,7 @@ base: core18
 parts:
   neyvan-jvm-snap:
     plugin: gradle
-    source: https://github.com/neyvan/neyvan-java-test/neyvan-java-test.git
+    source: https://github.com/neyvan/neyvan-java-test.git
     source-tag: release-$SNAPCRAFT_PROJECT_VERSION
     gradle-version: '5.1.1'
     gradle-output-dir: BIN
