@@ -1,0 +1,35 @@
+name: neyvan-jvm-snap
+version: '1.0.0'
+summary: Application for Mind Mapping […]
+description: |
+  Freeplane is a free and open source software […]
+
+confinement: devmode
+base: core18
+
+parts:
+  neyvan-jvm-snap:
+    plugin: gradle
+    source: https://github.com/neyvan/neyvan-java-test/neyvan-java-test.git
+    source-tag: release-$SNAPCRAFT_PROJECT_VERSION
+    gradle-version: '5.1.1'
+    gradle-output-dir: BIN
+    gradle-options: [binZip, -xtest, -xcreateGitTag]
+    override-build: |
+      snapcraftctl build
+      unzip -o DIST/freeplane_bin-*.zip -d $SNAPCRAFT_PART_INSTALL/
+    build-packages:
+      - unzip
+
+apps:
+  freeplane:
+    extensions:
+      - gnome-3-28
+    command: freeplane-$SNAPCRAFT_PROJECT_VERSION/freeplane.sh
+    environment:
+      JAVA_HOME: $SNAP/usr/lib/jvm/java-11-openjdk-amd64
+      PATH: $JAVA_HOME/jre/bin:$PATH
+    plugs:
+      - home
+      - network
+      - cups-control
